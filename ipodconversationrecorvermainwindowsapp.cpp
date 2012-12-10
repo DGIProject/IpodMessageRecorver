@@ -21,6 +21,12 @@ IpodConversationRecorverMainWindowsApp::IpodConversationRecorverMainWindowsApp(Q
     ui->lableConvPres->hide();
     ui->labelContenu->hide();
     ui->actionTo_html_format->setEnabled(false);
+    ui->actionChoose_the_file->setShortcut(Qt::CTRL+Qt::Key_O);
+    ui->actionDownload_a_File_from_server->setShortcut(Qt::CTRL+Qt::Key_D);
+    ui->actionQuit->setShortcut(Qt::CTRL+Qt::Key_Q);
+    ui->actionUpload_File_To_server->setShortcut(Qt::CTRL+Qt::Key_U );
+    ui->actionPreferences->setShortcut(Qt::CTRL+Qt::Key_P);
+    ui->actionSMS_db_from_an_Itune_Save->setShortcut(Qt::CTRL+Qt::Key_O+Qt::Key_0);
 
 
 }
