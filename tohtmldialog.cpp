@@ -12,6 +12,7 @@ ToHtmlDialog::ToHtmlDialog(QWidget *parent, QSqlDatabase db) :
     SQliteDb = db;
     ui->radioButton->setChecked(true);
     ui->comboBox->setEnabled(false);
+    ui->widget->hide();
     query_sqlitedb = new QSqlQuery(SQliteDb);
     if (SQliteDb.open())
     {
@@ -56,9 +57,86 @@ void ToHtmlDialog::on_Btn_export_clicked()
     QFile htmlFile("test.txt");
     if (htmlFile.open(QIODevice::WriteOnly))
     {
-            QString str ="patate !";
-            QTextStream outstream(&htmlFile);
-            outstream << str;
+        if (ui->radioButton->isChecked())
+        {
+
+        }
+        else
+        {
+            if (SQliteDb.open())
+            {
+                ui->widget->show();
+                query_sqlitedb->clear();
+
+                query_sqlitedb->prepare("SELECT COUNT(*) AS nb_field FROM message WHERE madrid_handle = ?");
+                query_sqlitedb->addBindValue(ui->comboBox->currentText());
+                int testintforhqdfbsdf = 0;
+
+                if (query_sqlitedb->exec())
+                {
+                    while(query_sqlitedb->next())
+                    {
+                        testintforhqdfbsdf = query_sqlitedb->record().value("nb_field").toInt();
+                        qDebug() << query_sqlitedb->record().value("nb_field");
+                    }
+                }
+
+                ui->Progress->setMinimum(0);
+                ui->Progress->setMaximum(testintforhqdfbsdf);
+
+                query_sqlitedb->clear();
+                query_sqlitedb->prepare("SELECT * FROM message WHERE madrid_handle = ? ORDER BY ROWID");
+                query_sqlitedb->addBindValue(ui->comboBox->currentText());
+
+                if (query_sqlitedb->exec())
+                {
+                    int iteratorcanevol = 0;
+                    QString FullLine = " ";
+                    int x = 3;
+                    int x2 = 31;
+                    int totallines = 0;
+
+                    while(query_sqlitedb->next())
+                    {
+
+                        if ( query_sqlitedb->value(x2) == "0")
+                        {
+                            QString toAppend = "<p>" + query_sqlitedb->value(x).toString() + "</p>";
+                            qDebug() <<  "deux :" << query_sqlitedb->value(x).toString() ;
+                            FullLine += toAppend;
+                            iteratorcanevol++;
+                            totallines++;
+
+                        }
+                        else
+                        {
+                            QString ToAppend = "<p align='right'>" + query_sqlitedb->value(x).toString() + "</p>";
+                            qDebug() << query_sqlitedb->value(x).toString() ;
+                            FullLine += ToAppend;
+                            iteratorcanevol++;
+                            totallines++;
+
+
+                        }
+
+                        ui->Progress->setValue(iteratorcanevol);
+
+                    }
+                    FullLine += "</body></html>";
+
+                    ui->widget->hide();
+                    qDebug() << totallines;
+                    QTextStream outstream(&htmlFile);
+                    outstream << FullLine;
+
+                }
+                else
+                {
+                    QMessageBox::critical(this, "Erreur", "Impossile d'ourvire la base ... querry \n" + query_sqlitedb->lastError().text());
+
+                }
+            }
+        }
     }
     else
     {
