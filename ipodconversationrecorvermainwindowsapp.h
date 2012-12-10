@@ -36,6 +36,7 @@ private slots :
     void on_actionAbout_triggered();
     void on_actionVersions_triggered();
     void on_actionTo_html_format_triggered();
+    void on_actionSMS_db_from_an_Itune_Save_triggered();
 };
 
 #endif // IPODCONVERSATIONRECORVERMAINWINDOWSAPP_H

@@ -3,6 +3,16 @@
 #include <QtGui>
 #include "helpwindows.h"
 #include "tohtmldialog.h"
+#include "itunesmsdialog.h"
+#ifdef _WIN32
+    QString stringOS = "WIN32";
+#endif
+#ifdef __APPLE__
+    QString stringOS = "APPLE";
+#endif
+#ifdef __linux__
+    QString stringOS = "WIN32";
+#endif
 
 IpodConversationRecorverMainWindowsApp::IpodConversationRecorverMainWindowsApp(QWidget *parent, QSqlDatabase db) :
     QMainWindow(parent),
@@ -26,7 +36,6 @@ IpodConversationRecorverMainWindowsApp::IpodConversationRecorverMainWindowsApp(Q
     ui->actionQuit->setShortcut(Qt::CTRL+Qt::Key_Q);
     ui->actionUpload_File_To_server->setShortcut(Qt::CTRL+Qt::Key_U );
     ui->actionPreferences->setShortcut(Qt::CTRL+Qt::Key_P);
-    ui->actionSMS_db_from_an_Itune_Save->setShortcut(Qt::CTRL+Qt::Key_O+Qt::Key_0);
 
 
 }
@@ -286,6 +295,24 @@ void IpodConversationRecorverMainWindowsApp::GetConversations(QString contact)
     }
 
 }
+
+void IpodConversationRecorverMainWindowsApp::on_actionSMS_db_from_an_Itune_Save_triggered()
+{
+
+    if (stringOS == "LINUX")
+    {
+        QMessageBox::information(this, "Attention !", "Cette fonctionalite n'est pas disponnible pour les Systeme Linux\n (temps que Itune n'existe pas pour Linux)");
+
+    }
+    else
+    {
+        ItuneSMSDialog *SMSItunes = new ItuneSMSDialog(this);
+        SMSItunes->show();
+    }
+
+}
+
+
 
 IpodConversationRecorverMainWindowsApp::~IpodConversationRecorverMainWindowsApp()
 {

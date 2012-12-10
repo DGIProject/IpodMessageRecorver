@@ -16,16 +16,19 @@ SOURCES += main.cpp\
     ipodconversationrecorvermainwindowsapp.cpp \
     ipodrecorverconversationsubsrib.cpp \
     helpwindows.cpp \
-    tohtmldialog.cpp
+    tohtmldialog.cpp \
+    itunesmsdialog.cpp
 
 HEADERS  += ipodrecorvermain.h \
     ipodconversationrecorvermainwindowsapp.h \
     ipodrecorverconversationsubsrib.h \
     helpwindows.h \
-    tohtmldialog.h
+    tohtmldialog.h \
+    itunesmsdialog.h
 
 FORMS    += ipodrecorvermain.ui \
     ipodconversationrecorvermainwindowsapp.ui \
     ipodrecorverconversationsubsrib.ui \
     helpwindows.ui \
-    tohtmldialog.ui
+    tohtmldialog.ui \
+    itunesmsdialog.ui
